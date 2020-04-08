@@ -53,6 +53,7 @@ $code:
             <th>$_(u'Station')</th>
             <th>$_(u'Duration')</th>
             <th>$_(u'Program')</th>
+            <th>$_(u'Usage')</th>
         </tr>
         $ odd = 1
         $for r in records:
@@ -63,7 +64,8 @@ $code:
                 <td align='center'>${snames[event["station"]]}</td>
                 <td align='center'>${event["duration"]}</td>
                 <td align='center'>${event["program"]}</td>
-            </tr>
+                <td align='center'>${event["usage"]}</td>
+             </tr>
             $ odd = 1 - odd
     </table>
 

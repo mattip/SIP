@@ -374,7 +374,11 @@ def log_run():
             + u'","'
             + strt
             + u'":"'
-            + time.strftime(u'%H:%M:%S","' + date + u'":"%Y-%m-%d"', start)
+            + time.strftime(u'%H:%M:%S","' + date + u'":"%Y-%m-%d', start)
+            + u'","'
+            + u'usage'
+            + u'":"'
+            + '{:.2f}"'.format(gv.plugin_data['fs']['program_amounts'][gv.lrun[0]])
             + u"}"
         )
         lines = []

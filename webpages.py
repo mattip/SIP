@@ -676,6 +676,17 @@ class api_status(ProtectedPage):
                         u"remaining": 0,
                         u"name": sname,
                     }
+                    if "fs" in gv.plugin_data:
+                        status['flowRate'] = gv.plugin_data["fs"]["rates"][sid]
+                        status['flowAmt'] = gv.plugin_data["fs"]["program_amounts"][sid]
+                        status['rateUnits'] = gv.plugin_data["fs"]['settings']["rate_units"]
+                        status['units'] = gv.plugin_data["fs"]['settings']["units"]
+                    else:
+                        status['flowRate'] = 0
+                        status['flowAmt'] = 0
+                        status['rateUnits'] = ""
+                        status['units'] = ""
+
                     if gv.sd[u"en"] == 1:
                         if sbit:
                             status[u"status"] = u"on"

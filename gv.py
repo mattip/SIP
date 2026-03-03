@@ -141,7 +141,7 @@ lrun = [0, 0, 0, 0]  # station index, program number, duration, end time (Used i
 scount = (
     0
 )  # Station count, used in set station to track on stations with master association.
-use_gpio_pins = True
+use_gpio_pins = False
 
 options = [
     [

@@ -477,7 +477,7 @@ class change_runonce(ProtectedPage):
     def GET(self):
         qdict = web.input()
         if not gv.sd[u"en"]:  # check operation status
-            return
+            return "SIP system 'off' on HOME page"
         gv.rovals = json.loads(qdict[u"t"])
         gv.rovals.pop()
         for sid in range(gv.sd[u"nst"]):

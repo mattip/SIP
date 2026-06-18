@@ -1,15 +1,34 @@
-#!/usr/bin/python3
+#!/bin/bash
+set -euo pipefail
 
-import relay_lib_seeed
-import sys
-if len(sys.argv) < 3:
-    print("call as %s <relay> [0,1]" % sys.argv[0])
-    exit(1)
-station = int(sys.argv[1])
-if station > 4:
-    import relay_56
-else:
-    if sys.argv[2] == '1':
-        relay_lib_seeed.relay_on(station)
-    else:
-        relay_lib_seeed.relay_off(station)
+if [[ $# -ne 2 ]]; then
+    echo "Usage: relay.sh <station 1-8> <0|1>" >&2
+    exit 1
+fi
+
+station=$1
+onoff=$2
+
+if [[ ! "$station" =~ ^[1-8]$ ]]; then
+    echo "Error: station must be 1-8" >&2
+    exit 1
+fi
+
+if [[ ! "$onoff" =~ ^[01]$ ]]; then
+    echo "Error: onoff must be 0 or 1" >&2
+    exit 1
+fi
+
+if (( station <= 4 )); then
+    addr=0x12
+    reg=$station
+else
+    addr=0x10
+    reg=$(( station - 4 ))
+fi
+
+reg=$(printf "0x%02x" "$reg")
+val=$(printf "0x%02x" "$onoff")
+
+# echo "i2cset -y 1 $addr $reg $val"
+i2cset -y 1 "$addr" "$reg" "$val"
